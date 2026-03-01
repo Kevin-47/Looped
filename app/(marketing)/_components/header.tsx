@@ -1,10 +1,11 @@
 'use client'
 import Link from 'next/link'
-import { Logo } from '@/components/logo'
+import Logo from '@/components/icon.png'
 import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import React from 'react'
 import { cn } from '@/lib/utils'
+import Image from 'next/image'
 
 const menuItems = [
     { name: 'Features', href: '#link' },
@@ -36,7 +37,8 @@ export const HeroHeader = () => {
                                 href="/"
                                 aria-label="home"
                                 className="flex items-center space-x-2">
-                                <Logo />
+                                <Image src={Logo} alt="Logo" width={32} height={32} />
+                                <h1 className='text-2xl font-bold'>Looped</h1>
                             </Link>
 
                             <button
