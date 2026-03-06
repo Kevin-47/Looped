@@ -9,12 +9,14 @@ import { HeroHeader } from './header'
 import BackgroundImage from '@/public/night-background.webp'
 import HeroDark from '@/public/hero-dark.webp'
 import HeroLight from '@/public/hero-light.webp'
-import Arkjet from '@/public/companies/arkjet.webp'
-import motion from '@/public/companies/motion.webp'
-import orpc from '@/public/companies/orpc.webp'
-import neon from '@/public/companies/neon.webp'
-import vercel from '@/public/companies/vercel.webp'
-import prisma from '@/public/companies/prisma.webp'
+import Arkjet from '@/public/companies/c11.png'
+import motion from '@/public/companies/c14.png'
+import orpc from '@/public/companies/c15.png'
+import neon from '@/public/companies/11.png'
+import vercel from '@/public/companies/12.png'
+import prisma from '@/public/companies/13.png'
+import chatgpt from '@/public/companies/14.png'
+import fox from '@/public/companies/15.png'
 
 const transitionVariants = {
     item: {
@@ -222,67 +224,53 @@ export default function HeroSection() {
                             </div>
 
                             <div className="flex">
-                                <img
-                                    className="mx-auto h-4 w-fit dark:invert"
-                                    src={motion.src}
-                                    alt="Motion Logo"
-                                    height="16"
-                                    width="auto"
+                            <Image
+                                    className="mx-auto h-7 object-contain invert dark:invert-0"
+                                    src={motion}
+                                    alt="motion Logo"
                                 />
                             </div>
                             <div className="flex">
-                                <img
-                                    className="mx-auto h-4 w-fit dark:invert"
-                                    src={orpc.src}
-                                    alt="ORPC Logo"
-                                    height="16"
-                                    width="auto"
+                            <Image
+                                    className="mx-auto h-7 object-contain invert dark:invert-0"
+                                    src={orpc}
+                                    alt="orpc Logo"
                                 />
                             </div>
                             <div className="flex">
-                                <img
-                                    className="mx-auto h-5 w-fit dark:invert"
-                                    src={vercel.src}
-                                    alt="Vercel Logo"
-                                    height="20"
-                                    width="auto"
+                            <Image
+                                    className="mx-auto h-7 object-contain invert dark:invert-0"
+                                    src={fox}
+                                    alt="fox Logo"
                                 />
                             </div>
                             <div className="flex">
-                                <img
-                                    className="mx-auto h-5 w-fit dark:invert"
-                                    src={prisma.src}
-                                    alt="Prisma Logo"
-                                    height="20"
-                                    width="auto"
+                            <Image
+                                    className="mx-auto h-7 object-contain invert dark:invert-0"
+                                    src={chatgpt}
+                                    alt="chatgpt Logo"
                                 />
                             </div>
                             <div className="flex">
-                                <img
-                                    className="mx-auto h-4 w-fit dark:invert"
-                                    src="https://html.tailus.io/blocks/customers/laravel.svg"
-                                    alt="Laravel Logo"
-                                    height="16"
-                                    width="auto"
+                            <Image
+                                    className="mx-auto h-7 object-contain invert dark:invert-0"
+                                    src={prisma}
+                                    alt="prisma Logo"
                                 />
                             </div>
                             <div className="flex">
-                                <img
-                                    className="mx-auto h-7 w-fit dark:invert"
-                                    src="https://html.tailus.io/blocks/customers/lilly.svg"
-                                    alt="Lilly Logo"
-                                    height="28"
-                                    width="auto"
+                            <Image
+                                    className="mx-auto h-7 object-contain invert dark:invert-0"
+                                    src={vercel}
+                                    alt="vercel Logo"
                                 />
                             </div>
 
                             <div className="flex">
-                                <img
-                                    className="mx-auto h-6 w-fit dark:invert"
-                                    src="https://html.tailus.io/blocks/customers/openai.svg"
-                                    alt="OpenAI Logo"
-                                    height="24"
-                                    width="auto"
+                            <Image
+                                    className="mx-auto h-7 object-contain invert dark:invert-0"
+                                    src={neon}
+                                    alt="neon Logo"
                                 />
                             </div>
                         </div>
