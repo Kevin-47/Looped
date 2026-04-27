@@ -1,0 +1,100 @@
+'use client'
+
+import { useEffect } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  DropdownMenuGroup
+} from "@/components/ui/dropdown-menu";
+import { orpc } from "@/lib/orpc";
+import { LogoutLink, PortalLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { CreditCardIcon, LogOutIcon, UserIcon } from "lucide-react";
+import { getAvatar } from "@/lib/get-avatar";
+import Image from "next/image";
+
+export function UserNav() {
+  const { data: { user } } = useSuspenseQuery(orpc.workspace.list.queryOptions());
+
+  // ✅ Only log when user.picture changes
+  useEffect(() => {
+    console.log(user.picture);
+  }, [user.picture]);
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="outline"
+          size="icon"
+          className="size-12 rounded-xl hover:rounded-lg transition-all duration-200 bg-background/50 border-border/50 hover:bg-accent hover:text-accent-foreground"
+        >
+          <Avatar>
+            <AvatarImage
+              src={getAvatar(user.picture, user.email!)}
+              alt="User Image"
+              className="object-cover"
+            />
+            <AvatarFallback>
+              {user.given_name?.slice(0, 2).toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
+        </Button>
+      </DropdownMenuTrigger>
+
+      <DropdownMenuContent align="end" side="right">
+        <DropdownMenuLabel className="font-normal flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+          <Avatar className="relative size-8 rounded-lg">
+            <Image
+              src={getAvatar(user.picture, user.email!)}
+              alt="User Image"
+              fill
+              className="object-cover"
+            />
+            <AvatarFallback>
+              {user.given_name?.slice(0, 2).toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
+          <div className="grid flex-1 text-left text-sm leading-tight">
+            <p className="truncate font-medium">{user.given_name}</p>
+            <p className="text-muted-foreground truncate text-xs">
+              {user.email}
+            </p>
+          </div>
+        </DropdownMenuLabel>
+
+        <DropdownMenuSeparator />
+
+        <DropdownMenuGroup>
+          <DropdownMenuItem asChild>
+            <PortalLink>
+              <UserIcon />
+              Account
+            </PortalLink>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <PortalLink>
+              <CreditCardIcon />
+              Billing
+            </PortalLink>
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+
+        <DropdownMenuSeparator />
+
+        <DropdownMenuItem asChild>
+          <LogoutLink>
+            <LogOutIcon />
+            Logout
+          </LogoutLink>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}

@@ -1,17 +1,14 @@
-import HeroSection from '@/app/(marketing)/_components/hero-section'
-import { ThemeToggle } from '@/components/ui/theme-toggle'
+// import { HeroHeader } from '@/components/header'
+import HeroSection from '@/app/(marketing)/_component/hero-section'
 
-// import HeroHeader from '@/components/header'
 
-const Home = () => {
+
+const Page = () => {
   return (
-      <div>
-        {/* <HeroHeader /> */}
-
-        <HeroSection />
-        <ThemeToggle />
-      </div>
+    <div>
+      <HeroSection/>
+    </div>
   )
 }
 
-export default Home
+export default Page

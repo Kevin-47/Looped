@@ -1,0 +1,51 @@
+import { useState } from "react";
+import usePartySocket from "partysocket/react";
+import { PresenceMessage, PresenceSchema, User } from "@/app/schemas/realtime";
+
+interface usePresenceProps {
+  room: string;
+  currentUser: User | null;
+}
+
+export function usePresence({ room, currentUser }: usePresenceProps) {
+  const [onlineUsers, setOnlineUser] = useState<User[]>([]);
+
+  const socket = usePartySocket({
+    host: "https://teamflow-chat-realtime.sankarwebdev.workers.dev",
+    room: room,
+    party: "chat",
+    onOpen() {
+      console.log("Connected to presence  room:", room);
+
+      if (currentUser) {
+        const message: PresenceMessage = {
+          type: "add-user",
+          payload: currentUser,
+        };
+        socket.send(JSON.stringify(message));
+      }
+    },
+    onMessage(event) {
+      try {
+        const message = JSON.parse(event.data);
+        const result = PresenceSchema.safeParse(message);
+        if (result.success && result.data.type === "presence") {
+          setOnlineUser(result.data.payload.users);
+        }
+      } catch (error) {
+        console.log("Failed to parse message", error);
+      }
+    },
+    onClose() {
+      console.log("Disconnected from presence room", room);
+    },
+    onError(error) {
+      console.log("Websocket Error", error);
+    },
+  });
+
+  return {
+    onlineUsers,
+    socket,
+  };
+}
