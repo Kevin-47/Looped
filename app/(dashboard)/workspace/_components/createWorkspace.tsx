@@ -4,71 +4,50 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTrigger, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from '@hookform/resolvers/zod'
+import { zodResolver } from "@hookform/resolvers/zod";
 import { workspaceSchema, WorkspaceSchemaType } from "@/app/schemas/workspace";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { orpc } from "@/lib/orpc";
 import { toast } from "sonner";
-import { isDefinedError } from "@orpc/client";
 
 export function CreateWorkspace() {
     const [open, setOpen] = useState(false);
+    const queryClient = useQueryClient();
 
-
-    const queryClient = useQueryClient()
-
-
-
-    const form = useForm({
-        resolver: zodResolver(
-            workspaceSchema
-        ),
+    const form = useForm<WorkspaceSchemaType>({
+        resolver: zodResolver(workspaceSchema),
         defaultValues: {
-            name: ""
-        }
-    })
+            name: "",
+        },
+    });
 
-
-    const createWorkspaceMutation = useMutation(
-        orpc.workspace.create.mutationOptions({
-            onSuccess: (newWorkspace) => {
-                toast.success(`Workspace ${newWorkspace.workspaceName} Create successfullly`)
-                queryClient.invalidateQueries({
-                    queryKey: orpc.workspace.list.queryKey()
-                })
-
-                form.reset();
-                setOpen(false)
-            },
-            onError: (error) => {
-
-                if(isDefinedError(error)){
-                    if(error.code ==='RATE_LIMITED'){
-                            return;
-                    }
-
-
-
-                    toast.error(error.message);
-                    return
-                }
-                toast.error('Failed to create workspace, try again!')
+    const createWorkspaceMutation = useMutation({
+        ...orpc.workspace.create.mutationOptions(),
+        onSuccess: (newWorkspace) => {
+            toast.success(`Workspace "${newWorkspace.workspaceName}" created successfully!`);
+            queryClient.invalidateQueries({
+                queryKey: orpc.workspace.list.queryKey(),
+            });
+            form.reset();
+            setOpen(false);
+        },
+        onError: (error: any) => {
+            // I thought this would work not sure (kevingeorge)
+            // to handle orpc defined errors
+            if (error?.code === "RATE_LIMITED") {
+                toast.error("You're doing that too fast. Please wait.");
+                return;
             }
-        })
-    )
-
+            toast.error(error?.message ?? "Failed to create workspace, try again!");
+        },
+    });
 
     function onSubmit(values: WorkspaceSchemaType) {
-        createWorkspaceMutation.mutate(values)
+        createWorkspaceMutation.mutate(values);
     }
 
     return (
@@ -86,18 +65,18 @@ export function CreateWorkspace() {
                     </DialogTrigger>
                 </TooltipTrigger>
                 <TooltipContent side="right">
-                    <p> Create Workspace</p>
+                    <p>Create Workspace</p>
                 </TooltipContent>
             </Tooltip>
+
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle>
-                        Create Workspace
-                    </DialogTitle>
+                    <DialogTitle>Create Workspace</DialogTitle>
                     <DialogDescription>
                         Create a new workspace to get started
                     </DialogDescription>
                 </DialogHeader>
+
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                         <FormField
@@ -107,19 +86,26 @@ export function CreateWorkspace() {
                                 <FormItem>
                                     <FormLabel>Name</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="My Workspace" {...field} />
+                                        <Input
+                                            placeholder="My Workspace"
+                                            disabled={createWorkspaceMutation.isPending}
+                                            {...field}
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
 
-                        <Button disabled={
-                            createWorkspaceMutation.isPending
-                        } type="submit">{createWorkspaceMutation.isPending ? 'Creating...' : ' Create Workspace'}</Button>
+                        <Button
+                            type="submit"
+                            disabled={createWorkspaceMutation.isPending}
+                            className="w-full"
+                        >
+                            {createWorkspaceMutation.isPending ? "Creating..." : "Create Workspace"}
+                        </Button>
                     </form>
                 </Form>
-
             </DialogContent>
         </Dialog>
     );
