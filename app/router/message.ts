@@ -5,7 +5,7 @@ import { WriteSecurityMiddleware } from "../middleware/arcjet/write";
 import { requiredAuthMiddleware } from "../middleware/auth";
 import { base } from "../middleware/base";
 import { requiredWorkspaceMiddleware } from "../middleware/workspace";
-import prisma from "@/lib/db";
+import {prisma} from "@/lib/db";
 import { createMessageSchema, toggleReactionSchema, updateMessageSchema,GroupedReactionsSchema, GroupedReactionsSchemaType } from "../schemas/message";
 import { getAvatar } from "@/lib/get-avatar";
 import { Message } from "@/lib/generated/prisma";

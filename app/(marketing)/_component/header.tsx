@@ -48,10 +48,10 @@ export const HeroHeader = () => {
                                     width={32}
                                     height={32}
                                 />
-                                <h1 className='text-2xl font-bold '>Tail
-                                    <span className='text-primarty'>
+                                <h1 className='text-2xl font-bold '>Looped
+                                    {/* <span className='text-primarty'>
                                         Flow
-                                    </span>
+                                    </span> */}
                                 </h1>
                             </Link>
 

@@ -128,7 +128,7 @@ export default function HeroSection() {
                                     delay={0.5}
                                     as="p"
                                     className="mx-auto mt-8 max-w-2xl text-balance text-lg">
-                                    Tailflow organizes coversation into channels with threads is realtime and use AI to keep teams in sync </TextEffect>
+                                    Looped organizes coversation into channels with threads is realtime and use AI to keep teams in sync </TextEffect>
 
                                 <AnimatedGroup
                                     variants={{
