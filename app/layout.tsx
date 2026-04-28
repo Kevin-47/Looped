@@ -74,8 +74,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Teamflow",
-  description: "Project Management AI SASS app",
+  title: "Looped",
+  description: "Project Management AI SAAS app",
 };
 
 export default function RootLayout({
