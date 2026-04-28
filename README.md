@@ -1,6 +1,6 @@
 # Looped
 
-> A real-time, AI-powered B2B team messaging SaaS — think Slack, re-imagined with modern edge infrastructure and built-in AI.
+> A real-time, AI-powered B2B team messaging SaaS - think Slack, re-imagined with modern edge infrastructure and built-in AI.
 
 Looped is a multi-tenant team chat platform where organizations can create workspaces, invite teammates, chat across channels and direct messages in real-time, and use AI to summarize conversations or compose better messages. It is built on Next.js 15 with the App Router, powered by Cloudflare Durable Objects for real-time fan-out, protected by Arcjet, and monetized through Stripe subscriptions.
 
