@@ -32,10 +32,10 @@ Looped is a multi-tenant team chat platform where organizations can create works
 ## Tech Stack
 
 ### Frontend
-- **Next.js 15** (App Router, React Server Components)
-- **React 19**
-- **TypeScript 5**
-- **Tailwind CSS v4**
+- **Next.js** (App Router, React Server Components)
+- **React**
+- **TypeScript**
+- **Tailwind CSS**
 - **Shadcn UI** + **Radix UI** primitives
 - **Lucide Icons**
 - **TanStack Query** - client-side data caching
