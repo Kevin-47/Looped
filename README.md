@@ -8,7 +8,7 @@ Looped is a multi-tenant team chat platform where organizations can create works
 
 ## Features
 
-- **Next.js 15** - App Router, Server Components, Server Actions, and Route Handlers
+- **Next.js** - App Router, Server Components, Server Actions, and Route Handlers
 - **Tailwind CSS & Shadcn UI** - accessible, themeable, fully typed component system
 - **Authentication with Kinde** - OAuth (Google, GitHub, etc.) & passwordless Magic Links
 - **Arcjet Security** - protection against XSS, SQL injection, bot abuse, and common attacks
